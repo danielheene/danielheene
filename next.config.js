@@ -57,8 +57,9 @@ module.exports = {
 };
 
 const ContentSecurityPolicy = `
-  child-src *.google.com;
+  child-src *.google.com *.github.io;
   connect-src *;
+  object-src *.github.io;
   default-src 'self';
   font-src 'self';
   img-src * blob: data:;

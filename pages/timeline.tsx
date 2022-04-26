@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import tw from 'twin.macro';
 import { format, parse } from 'date-fns';
 import { Icon } from '@iconify/react';
@@ -9,6 +8,7 @@ import { Layout } from '@layouts/index';
 import type { GetStaticProps } from 'next';
 
 import type { Timeline, TimelineEvent } from '@typings/timeline';
+import { Frame } from '@components/Frame';
 
 interface TimelineProps {
   timeline?: Timeline;
@@ -74,23 +74,18 @@ const EventBody = tw.div`
 	min-w-0 flex-1
 `;
 
-const Title = styled.h1`
-  ${tw`
-		flex flex-wrap justify-start items-center
-		text-white
-		ml-2
-		text-lg tracking-tight font-bold
-	`}
-  div {
-    ${tw`mt-2 sm:mt-0`}
-  }
+const Title = tw.h1`
+  flex flex-wrap justify-start items-center
+  text-white
+  ml-2
+  text-lg tracking-tight font-bold
 `;
 
 const DateContainer = tw.div`
   inline-flex flex-row justify-end items-center whitespace-nowrap mb-2 self-end ml-auto
 `;
 
-const Description = tw.p`
+const Paragraph = tw.p`
 	my-2
 	text-gray-300
 	text-base
@@ -148,10 +143,12 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
     <Layout.Default seo={{ title: 'daniel.heene.io ─ timeline' }}>
       <Container>
         <Content>
+          <Frame src='https://danielheene.github.io/a11y-plugin/' />
+
           <List role='list'>
             {timeline.map((event, index) => (
               <ListItem key={event.title}>
-                <ListItemContainer tw=''>
+                <ListItemContainer>
                   {index !== timeline.length - 1 ? (
                     <TimelineConnector aria-hidden='true' />
                   ) : null}
@@ -162,7 +159,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
                         <EventIcon icon={event.icon} aria-hidden='true' />
                       </EventIconContainer>
                       <Title>
-                        <span>{event.title}</span>
+                        {event.title}
                         {event.link && (
                           <EventLinkButton
                             href={event.link}
@@ -183,7 +180,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 
                     <EventBody>
                       {event.description.map((paragraph, index) => (
-                        <Description
+                        <Paragraph
                           key={index}
                           dangerouslySetInnerHTML={{ __html: paragraph }}
                         />

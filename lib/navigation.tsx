@@ -49,10 +49,10 @@ export const menuItems: Array<Array<NavigationItem>> = [
     },
     {
       type: NavigationItemType.LINK,
-      external: true,
-      href: 'mailto:daniel@heene.io',
       icon: 'feather:mail',
       text: 'Mail',
+      href: 'mailto:daniel@heene.io',
+      external: true,
     },
   ],
   [
